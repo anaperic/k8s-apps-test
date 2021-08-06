@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debian-deployment
+  namespace: test01
+  labels:
+    app: debian10
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: debian10
+  template:
+    metadata:
+      labels:
+        app: debian10
+        app.kubernetes.io/app: "debian10"
+    spec:
+      containers:
+      - name: debian10
+        image: debian:10
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN", "SYS_TIME"]
+        command:
+        - sleep
+        - "36000000"
+
