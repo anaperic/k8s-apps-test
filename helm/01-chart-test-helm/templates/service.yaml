@@ -4,6 +4,7 @@ metadata:
   name: {{ include "01-chart-test-helm.fullname" . }}
   labels:
     {{- include "01-chart-test-helm.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
 spec:
   type: {{ .Values.service.type }}
   ports:
