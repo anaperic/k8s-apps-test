@@ -24,7 +24,25 @@ spec:
         securityContext:
           capabilities:
             add: ["NET_ADMIN", "SYS_TIME"]
+          readOnlyRootFilesystem: true
         command:
         - sleep
         - "36000000"
+        volumeMounts:
+          - mountPath: /var/run
+            name: tmpfs-1
+          - mountPath: /var/cache
+            name: tmpfs-2
+          - mountPath: /var
+            name: tmpfs-3
+      volumes:
+        - name: tmpfs-1
+          emptyDir: {}
+        - name: tmpfs-3
+          emptyDir: {}
+        #- name: tmpfs-ram
+        #  emptyDir:
+        #    medium: "Memory"
+        - name: tmpfs-2
+          emptyDir: {}
 
